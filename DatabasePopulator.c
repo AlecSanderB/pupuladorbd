@@ -89,6 +89,9 @@ char* generateRandomLicensePlate(){
 
 char* generateRandomName(char * filename){
 	FILE* namesList = fopen(filename, "r");
+	if(namesList == NULL){
+		return NULL;
+	}
 	int i = 0;
 	
 	char* name = malloc(100* sizeof(char));
@@ -111,6 +114,10 @@ void generateCliente(int quantidade){
 	for(i = 0; i < quantidade; i++){
 		int randomId = generateRandomId(9);
 		char* randomName = generateRandomName("names.txt");
+		if(randomName == NULL){
+			printf("ERRO! Arquivo nao encontrado");
+			exit(0);
+		}
 		char* randomCPF = generateRandomCPF();
 		fprintf(fileCliente, "INSERT INTO Cliente VALUES ('%d', '%s', '%s');\n", randomId, randomName, randomCPF);
 		fprintf(auxCliente, "%d\n", randomId);
@@ -131,6 +138,10 @@ void generateTaxi(int quantidade){
 		char* randomLicense = generateRandomLicense();
 		char* randomBrand1 = generateRandomName("carbrands.txt");
 		char* randomBrand2 = generateRandomName("carbrands.txt");
+		if(randomBrand1 == NULL || randomBrand2 == NULL){
+			printf("ERRO! Arquivo nao encontrado");
+			exit(0);
+		}
 		fprintf(fileTaxi, "INSERT INTO Taxi VALUES ('%s', '%s', '%s', '%d', '%s');\n", randomLicensePlate, randomBrand1, randomBrand2, randomAnoFab, randomLicense);
 		fprintf(auxTaxi, "%s\n", randomLicensePlate);
 		free(randomLicensePlate);
