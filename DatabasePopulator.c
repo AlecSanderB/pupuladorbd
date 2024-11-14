@@ -97,7 +97,7 @@ char* generateRandomName(char * filename){
 	char* name = malloc(100* sizeof(char));
 	fseek(namesList, 0, SEEK_END);
 	long fileSize = ftell(namesList);
-	fseek(namesList, generateRandomInt(0, fileSize), SEEK_SET);
+	fseek(namesList, generateRandomInt(20, fileSize), SEEK_SET);
 	fseek(namesList,  -20, SEEK_CUR);
 	name = fgets(name, 20, namesList);
 	name = fgets(name, 20, namesList);
